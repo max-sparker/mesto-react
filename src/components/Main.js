@@ -4,6 +4,11 @@ import api from '../utils/api';
 
 function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
+  const [userName, setUserName] = React.useState();
+  const [userDescription, setUserDescription] = React.useState();
+  const [userAvatar, setUserAvatar] = React.useState();
+  const [cards, setCards] = React.useState([]);
+
   React.useEffect(() => {
     api.getUserInfo().then((data) => {
       console.log(data);
@@ -11,11 +16,11 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
       setUserDescription(data.about);
       setUserAvatar(data.avatar);
     });
-  }, []);
 
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
+    api.getInitialCards().then((cardList) => {
+      setCards(cardList);
+    });
+  }, []);
 
   return (
         <main className="content">
@@ -49,7 +54,21 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
                 />
             </section>
             <section className="places">
-
+                {cards.map((card) => {
+                  return (
+                    <article className="card" key={card._id}>
+                      <img className="card__image" src={card.link} alt={card.name} />
+                      <button className="card__remove-btn" type="button" aria-label="Удалить" />
+                      <div className="card__title">
+                        <h2 className="card__name">{card.name}</h2>
+                        <div className="card__like-container">
+                          <button className="card__like-btn" type="button" aria-label="Мне нравится" />
+                          <p className="card__like-counter">{card.likes.length}</p>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
             </section>
         </main>
     );
