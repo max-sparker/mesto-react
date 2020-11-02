@@ -1,8 +1,9 @@
 import React from 'react';
+import Card from './Card';
 import api from '../utils/api';
 
 
-function Main({onEditProfile, onAddPlace, onEditAvatar}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
@@ -54,21 +55,13 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
                 />
             </section>
             <section className="places">
-                {cards.map((card) => {
-                  return (
-                    <article className="card" key={card._id}>
-                      <img className="card__image" src={card.link} alt={card.name} />
-                      <button className="card__remove-btn" type="button" aria-label="Удалить" />
-                      <div className="card__title">
-                        <h2 className="card__name">{card.name}</h2>
-                        <div className="card__like-container">
-                          <button className="card__like-btn" type="button" aria-label="Мне нравится" />
-                          <p className="card__like-counter">{card.likes.length}</p>
-                        </div>
-                      </div>
-                    </article>
-                  );
-                })}
+                {cards.map((card) =>
+                  <Card
+                    key={card._id}
+                    card={card}
+                    onCardClick={onCardClick}
+                  />
+                )}
             </section>
         </main>
     );

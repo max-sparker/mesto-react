@@ -1,16 +1,16 @@
 import React from 'react';
-import api from '../utils/api';
 import Header from './Header';
-import Main from "./Main";
-import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
-import ImagePopup from "./ImagePopup";
+import Main from './Main';
+import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isPhotoPopupOpen, setIsPhotoPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -22,6 +22,11 @@ function App() {
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+    setIsPhotoPopupOpen(true);
   }
 
   function closeAllPopups() {
@@ -38,6 +43,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
         <PopupWithForm
           name="edit-profile"
@@ -105,9 +111,11 @@ function App() {
           <span className="popup__error" id="placelink-input-error" />
           <button className="popup__btn" type="submit" aria-label="Добавить место" disabled>Создать</button>
         </PopupWithForm>
-        <ImagePopup>
+        <ImagePopup
+          card={selectedCard}
+          isOpen={isPhotoPopupOpen}
           onClose={closeAllPopups}
-        </ImagePopup>
+        />
         <Footer />
       </div>
   );
