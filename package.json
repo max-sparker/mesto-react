@@ -1,5 +1,7 @@
 {
   "name": "4_mesto-react",
+  "description": "Данный проект представляет из себя одностраничный Web сайт с адаптивной версткой.",
+  "author": "Maksim Isaev",
   "version": "0.1.0",
   "private": true,
   "homepage": "http://max-sparker.github.io/mesto-react",

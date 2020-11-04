@@ -4,9 +4,9 @@ const currentDate = new Date();
 
 function Footer() {
     return (
-        <footer className="footer">
-            <p className="footer__copyright">&copy; {currentDate.getFullYear()} Mesto Russia</p>
-        </footer>
+      <footer className="footer">
+        <p className="footer__copyright">&copy; {currentDate.getFullYear()} Mesto Russia</p>
+      </footer>
     );
 }
 

@@ -2,13 +2,13 @@ import React from "react";
 
 function Card ({card, onCardClick}) {
 
-  function handldeClick() {
+  function handleClick() {
     onCardClick(card);
   }
 
   return(
     <article className="card">
-      <img className="card__image" src={card.link} alt={card.name} onClick={handldeClick}/>
+      <img className="card__image" src={card.link} alt={card.name} onClick={handleClick}/>
       <button className="card__remove-btn" type="button" aria-label="Удалить" />
       <div className="card__title">
         <h2 className="card__name">{card.name}</h2>
