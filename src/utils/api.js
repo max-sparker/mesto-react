@@ -69,21 +69,22 @@ class Api {
       .then(this._onError);
   }
 
-  setLikeCard(id) {
-    return fetch(`${this._url}/cards/likes/${id}`, {
-      method: 'PUT',
-      headers: this._headers
-    })
-      .then(this._onError);
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._url}/cards/likes/${id}`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+        .then(this._onError);
+    } else {
+      return fetch(`${this._url}/cards/likes/${id}`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+        .then(this._onError);
+    }
   }
 
-  removeLikeCard(id) {
-    return fetch(`${this._url}/cards/likes/${id}`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
-      .then(this._onError);
-  }
 }
 
 export const api = new Api({
