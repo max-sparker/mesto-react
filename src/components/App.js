@@ -58,6 +58,17 @@ function App() {
       });
   }
 
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then(() => {
+        const newCards = cards.filter((c) => c._id !== card._id);
+        setCards(newCards);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -76,6 +87,7 @@ function App() {
           onCardClick={handleCardClick}
           cards={cards}
           onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <PopupWithForm
           name="edit-profile"
