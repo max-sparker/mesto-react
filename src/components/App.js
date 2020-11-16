@@ -70,6 +70,17 @@ function App() {
       })
   }
 
+  function handleUpdateUser(user) {
+    api.setUserInfo(user)
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    setIsEditProfilePopupOpen(false);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -93,6 +104,7 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
         />
         <PopupWithForm
           name="update-avatar"
