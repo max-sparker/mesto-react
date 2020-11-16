@@ -7,6 +7,7 @@ import ImagePopup from './ImagePopup';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -106,21 +107,10 @@ function App() {
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
         />
-        <PopupWithForm
-          name="update-avatar"
-          title="Обновить аватар"
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}>
-          <input
-            className="popup__input popup__input_type_avatarlink"
-            type="url"
-            name="avatar"
-            placeholder="Ссылка на изображение"
-            required
-          />
-          <span className="popup__error" id="avatar-input-error" />
-          <button className="popup__btn" type="submit" aria-label="Обновить аватар">Обновить</button>
-        </PopupWithForm>
+          onClose={closeAllPopups}
+        />
         <PopupWithForm
           name="add-place"
           title="Новое место"
