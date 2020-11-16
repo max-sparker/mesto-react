@@ -2,12 +2,12 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -123,30 +123,10 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
-        <PopupWithForm
-          name="add-place"
-          title="Новое место"
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}>
-          <input
-            className="popup__input popup__input_type_placename"
-            type="text"
-            name="placename"
-            placeholder="Название"
-            required
-            maxLength="30"
-          />
-          <span className="popup__error" id="placename-input-error" />
-          <input
-            className="popup__input popup__input_type_placelink"
-            type="url"
-            name="placelink"
-            placeholder="Ссылка на картинку"
-            required
-          />
-          <span className="popup__error" id="placelink-input-error" />
-          <button className="popup__btn" type="submit" aria-label="Добавить место" disabled>Создать</button>
-        </PopupWithForm>
+          onClose={closeAllPopups}
+        />
         <ImagePopup
           card={selectedCard}
           isOpen={isPhotoPopupOpen}
