@@ -31,7 +31,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
       title="Редактировать профиль"
       isOpen={isOpen}
       onClose={onClose}
-      handleSubmit={handleSubmit}>
+      onSubmit={handleSubmit}>
       <input
         className="popup__input popup__input_type_username"
         type="text"

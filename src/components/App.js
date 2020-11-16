@@ -79,7 +79,18 @@ function App() {
       .catch((err) => {
         console.error(err);
       });
-    setIsEditProfilePopupOpen(false);
+    closeAllPopups();
+  }
+
+  function handleUpdateAvatar(user) {
+    api.updateUserAvatar(user)
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    closeAllPopups();
   }
 
   function closeAllPopups() {
@@ -110,6 +121,7 @@ function App() {
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
         <PopupWithForm
           name="add-place"
