@@ -93,6 +93,17 @@ function App() {
     closeAllPopups();
   }
 
+  function handleAddPlace (newCard) {
+    api.createCard(newCard)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    closeAllPopups();
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -126,6 +137,7 @@ function App() {
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
+          onAddPlace={handleAddPlace}
         />
         <ImagePopup
           card={selectedCard}
