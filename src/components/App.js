@@ -111,6 +111,24 @@ function App() {
     setIsPhotoPopupOpen(false);
   }
 
+  React.useEffect(() => {
+    function handleCloseByEsc (evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    document.addEventListener('keydown', handleCloseByEsc);
+    return () => {
+      document.removeEventListener('keydown', handleCloseByEsc);
+    }
+  }, []);
+
+  function handleCloseByOverlay(evt) {
+    if (evt.target === evt.currentTarget) {
+      closeAllPopups()
+    }
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -127,22 +145,26 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onCloseOverlay={handleCloseByOverlay}
           onUpdateUser={handleUpdateUser}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          onCloseOverlay={handleCloseByOverlay}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
+          onCloseOverlay={handleCloseByOverlay}
           onAddPlace={handleAddPlace}
         />
         <ImagePopup
           card={selectedCard}
           isOpen={isPhotoPopupOpen}
           onClose={closeAllPopups}
+          onCloseOverlay={handleCloseByOverlay}
         />
         <Footer />
       </CurrentUserContext.Provider>

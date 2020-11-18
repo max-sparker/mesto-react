@@ -1,7 +1,7 @@
 import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup ({isOpen, onClose, onAddPlace}) {
+function AddPlacePopup ({isOpen, onClose, onCloseOverlay, onAddPlace}) {
   const nameRef = React.useRef();
   const linkRef = React.useRef();
 
@@ -19,6 +19,7 @@ function AddPlacePopup ({isOpen, onClose, onAddPlace}) {
       title="Новое место"
       isOpen={isOpen}
       onClose={onClose}
+      onCloseByOverlay={onCloseOverlay}
       onSubmit={handleSubmit}>
       <input
         className="popup__input popup__input_type_placename"

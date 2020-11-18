@@ -3,7 +3,7 @@ import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
-function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
+function EditAvatarPopup ({isOpen, onClose, onCloseOverlay, onUpdateAvatar}) {
   const currentUser = React.useContext(CurrentUserContext);
   const avatarRef = React.useRef();
 
@@ -24,6 +24,7 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
       title="Обновить аватар"
       isOpen={isOpen}
       onClose={onClose}
+      onCloseByOverlay={onCloseOverlay}
       onSubmit={handleSubmit}>
       <input
         className="popup__input popup__input_type_avatarlink"
