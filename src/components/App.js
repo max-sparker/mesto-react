@@ -18,6 +18,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
+  const [isSaving, setIsSaving] = React.useState(false);
+
   const [selectedCard, setSelectedCard] = React.useState({});
 
   React.useEffect(() => {
@@ -72,35 +74,41 @@ function App() {
   }
 
   function handleUpdateUser(user) {
+    setIsSaving(true);
     api.setUserInfo(user)
       .then((user) => {
         setCurrentUser(user);
       })
       .catch((err) => {
         console.error(err);
-      });
+      })
+      .finally(() => setIsSaving(false));
     closeAllPopups();
   }
 
   function handleUpdateAvatar(user) {
+    setIsSaving(true);
     api.updateUserAvatar(user)
       .then((user) => {
         setCurrentUser(user);
       })
       .catch((err) => {
         console.error(err);
-      });
+      })
+      .finally(() => setIsSaving(false));
     closeAllPopups();
   }
 
   function handleAddPlace (newCard) {
+    setIsSaving(true);
     api.createCard(newCard)
       .then((newCard) => {
         setCards([newCard, ...cards]);
       })
       .catch((err) => {
         console.error(err);
-      });
+      })
+      .finally(() => setIsSaving(false));
     closeAllPopups();
   }
 
@@ -147,18 +155,21 @@ function App() {
           onClose={closeAllPopups}
           onCloseOverlay={handleCloseByOverlay}
           onUpdateUser={handleUpdateUser}
+          isSaving={isSaving}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           onCloseOverlay={handleCloseByOverlay}
+          isSaving={isSaving}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleCloseByOverlay}
           onAddPlace={handleAddPlace}
+          isSaving={isSaving}
         />
         <ImagePopup
           card={selectedCard}

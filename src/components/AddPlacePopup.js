@@ -1,7 +1,7 @@
 import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup ({isOpen, onClose, onCloseOverlay, onAddPlace}) {
+function AddPlacePopup ({isOpen, onClose, onCloseOverlay, onAddPlace, isSaving}) {
   const nameRef = React.useRef();
   const linkRef = React.useRef();
 
@@ -20,7 +20,10 @@ function AddPlacePopup ({isOpen, onClose, onCloseOverlay, onAddPlace}) {
       isOpen={isOpen}
       onClose={onClose}
       onCloseByOverlay={onCloseOverlay}
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+      buttonText="Создать"
+      buttonLabel="Добавить место"
+      isSaving={isSaving}>
       <input
         className="popup__input popup__input_type_placename"
         type="text"
@@ -40,7 +43,6 @@ function AddPlacePopup ({isOpen, onClose, onCloseOverlay, onAddPlace}) {
         ref={linkRef}
       />
       <span className="popup__error" id="placelink-input-error" />
-      <button className="popup__btn" type="submit" aria-label="Добавить место" disabled>Создать</button>
     </PopupWithForm>
   );
 }

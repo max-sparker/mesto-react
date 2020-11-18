@@ -2,7 +2,7 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function EditProfilePopup({isOpen, onClose, onCloseOverlay, onUpdateUser}) {
+function EditProfilePopup({isOpen, onClose, onCloseOverlay, onUpdateUser, isSaving}) {
   const currentUser = React.useContext(CurrentUserContext);
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
@@ -32,7 +32,10 @@ function EditProfilePopup({isOpen, onClose, onCloseOverlay, onUpdateUser}) {
       isOpen={isOpen}
       onClose={onClose}
       onCloseByOverlay={onCloseOverlay}
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+      buttonText="Сохранить"
+      buttonLabel="Сохранить профиль"
+      isSaving={isSaving}>
       <input
         className="popup__input popup__input_type_username"
         type="text"
@@ -57,7 +60,6 @@ function EditProfilePopup({isOpen, onClose, onCloseOverlay, onUpdateUser}) {
         onChange={handleDescriptionChange}
       />
       <span className="popup__error" id="description-input-error" />
-      <button className="popup__btn" type="submit" aria-label="Сохранить профиль">Сохранить</button>
     </PopupWithForm>
   )
 }
