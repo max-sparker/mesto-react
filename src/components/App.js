@@ -193,6 +193,7 @@ function App() {
           onClose={closeAllPopups}
           onCloseOverlay={handleCloseByOverlay}
           onConfirmDelete={handleCardDeleteConfirm}
+          isSaving={isSaving}
         />
         <Footer />
       </CurrentUserContext.Provider>
