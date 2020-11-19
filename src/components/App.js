@@ -70,6 +70,7 @@ function App() {
   }
 
   function handleCardDeleteConfirm() {
+    setIsSaving(true);
     api.deleteCard(selectedCard._id)
       .then(() => {
         const newCards = cards.filter((c) => c._id !== selectedCard._id);
@@ -77,7 +78,8 @@ function App() {
       })
       .catch((err) => {
         console.error(err);
-      });
+      })
+      .finally(() => {setIsSaving(false)});
     closeAllPopups();
   }
 
