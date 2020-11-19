@@ -8,12 +8,14 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import ConfirmPopup from './ConfirmPopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isPhotoPopupOpen, setIsPhotoPopupOpen] = React.useState(false);
+  const [isConfitmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
 
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
@@ -63,14 +65,20 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id)
+    setIsConfirmPopupOpen(true);
+    setSelectedCard(card);
+  }
+
+  function handleCardDeleteConfirm() {
+    api.deleteCard(selectedCard._id)
       .then(() => {
-        const newCards = cards.filter((c) => c._id !== card._id);
+        const newCards = cards.filter((c) => c._id !== selectedCard._id);
         setCards(newCards);
       })
       .catch((err) => {
         console.error(err);
-      })
+      });
+    closeAllPopups();
   }
 
   function handleUpdateUser(user) {
@@ -117,6 +125,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsPhotoPopupOpen(false);
+    setIsConfirmPopupOpen(false);
   }
 
   React.useEffect(() => {
@@ -176,6 +185,12 @@ function App() {
           isOpen={isPhotoPopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleCloseByOverlay}
+        />
+        <ConfirmPopup
+          isOpen={isConfitmPopupOpen}
+          onClose={closeAllPopups}
+          onCloseOverlay={handleCloseByOverlay}
+          onConfirmDelete={handleCardDeleteConfirm}
         />
         <Footer />
       </CurrentUserContext.Provider>
