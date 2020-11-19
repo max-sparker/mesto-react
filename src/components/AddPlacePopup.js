@@ -5,6 +5,11 @@ function AddPlacePopup ({isOpen, onClose, onCloseOverlay, onAddPlace, isSaving})
   const nameRef = React.useRef();
   const linkRef = React.useRef();
 
+  React.useEffect(() => {
+    nameRef.current.value = '';
+    linkRef.current.value = '';
+  }, [isOpen]);
+
   function handleSubmit(evt) {
     evt.preventDefault();
     onAddPlace({
