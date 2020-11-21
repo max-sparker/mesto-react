@@ -15,7 +15,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isPhotoPopupOpen, setIsPhotoPopupOpen] = React.useState(false);
-  const [isConfitmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
 
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
@@ -75,12 +75,12 @@ function App() {
       .then(() => {
         const newCards = cards.filter((c) => c._id !== selectedCard._id);
         setCards(newCards);
+        closeAllPopups();
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => {setIsSaving(false)});
-    closeAllPopups();
   }
 
   function handleUpdateUser(user) {
@@ -88,12 +88,12 @@ function App() {
     api.setUserInfo(user)
       .then((user) => {
         setCurrentUser(user);
+        closeAllPopups();
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => setIsSaving(false));
-    closeAllPopups();
   }
 
   function handleUpdateAvatar(user) {
@@ -101,12 +101,12 @@ function App() {
     api.updateUserAvatar(user)
       .then((user) => {
         setCurrentUser(user);
+        closeAllPopups();
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => setIsSaving(false));
-    closeAllPopups();
   }
 
   function handleAddPlace (newCard) {
@@ -114,12 +114,12 @@ function App() {
     api.createCard(newCard)
       .then((newCard) => {
         setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch((err) => {
         console.error(err);
       })
       .finally(() => setIsSaving(false));
-    closeAllPopups();
   }
 
   function closeAllPopups() {
@@ -189,7 +189,7 @@ function App() {
           onCloseOverlay={handleCloseByOverlay}
         />
         <ConfirmPopup
-          isOpen={isConfitmPopupOpen}
+          isOpen={isConfirmPopupOpen}
           onClose={closeAllPopups}
           onCloseOverlay={handleCloseByOverlay}
           onConfirmDelete={handleCardDeleteConfirm}
